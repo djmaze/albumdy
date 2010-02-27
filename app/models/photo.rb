@@ -8,7 +8,7 @@ class Photo < ActiveRecord::Base
   
   has_attached_file :image,
                     # using typical SLR camera aspect ratio of 2:3 (I.e. 4" x 6")
-                    :styles => { :original => "700x466", :cover => "150x100!", :thumb => "68x50!" },
+                    :styles => { :large => "2560x1712", :original => "700x466", :cover => "150x100!", :thumb => "68x50!" },
                     :path => ":rails_root/public/photos/:id/:style_:basename.:extension",
                     :url => "/photos/:id/:style_:basename.:extension"
                     #:storage => :s3,
