@@ -28,6 +28,7 @@ class AlbumsController < ResourceController::Base
   
   show.wants.html {
     @page_title = "#{@object.title} by #{@object.user.login}"
+    @photos = @object.photos.paginate :page => params[:page], :per_page => 9, :order => 'position'
     render(:layout => 'album')
   }
   edit.wants.html {
