@@ -9,11 +9,11 @@ class ZipArchive
     Zip::ZipFile.open(@zip_file.local_path) do |zipfile|
       zipfile.dir.foreach('.') do |file|
         # TODO Tempfile would be better, but doesn't give correct mime type!
-        tmpfile = File.new("/tmp/#{file}", File::RDWR)
+        tmpfile = File.new("/tmp/#{file}", 'w+')
         tmpfile.write zipfile.file.read(file)
 
         tmpfile.rewind
-        @album.photos.create!(:image => tmpfile, :title => File.basename(file))
+        @album.photos.create!(:image => tmpfile, :title => File.basename(file, File.extname(file)))
 
         tmpfile.close
         File::unlink("/tmp/#{file}")
