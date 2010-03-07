@@ -90,6 +90,10 @@ $(function() {
 <p>
   <a class="button positive thickbox" href="<%= new_user_album_photo_path(current_user, @album) %>?width=350&height=250" title="Upload Photo">
     <%= image_tag 'icons/key.png' %> Upload Photo
+  </a>  
+  
+  <a class="button positive thickbox" href="<%= new_user_album_zip_archive_path(current_user, @album) %>?width=350&height=250" title="Upload Zip archive"
+	<%= image_tag 'icons/key.png' %> Upload Zip archive
   </a>
 </p>
 <p class="clear">

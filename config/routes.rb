@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     # displaying and managing photos for users
     user.resources :albums, :member => { :edit_photos => :get } do |album|
       album.resources :photos, :collection => { :thumb => :get }, :member => { :update_position => :put }
+      album.resources :zip_archives
     end
   end
   

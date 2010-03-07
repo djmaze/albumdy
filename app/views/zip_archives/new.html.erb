@@ -1,0 +1,12 @@
+<%= error_messages_for :zip_archive %>
+
+<% form_for(:zip_archive, :url => user_album_zip_archives_path(current_user, @album), :html => { :multipart => true }) do |f| %>
+	<p>
+	  <%= f.label :zip_file, 'Upload Zip archive' %><br />
+	  <%= f.file_field :zip_file, :class => 'text' %>
+	  <br />
+	  <small>Choose a zip file containing image files. The uploaded photos will be given the filenames (without suffix) as titles.</small><br />
+	</p>
+	
+	<%= render :partial => '/shared/buttons', :locals => {:collection_path => edit_photos_user_album_path(current_user, @album)} %>	
+<% end %>
