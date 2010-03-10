@@ -6,19 +6,31 @@ class ZipArchive
   end  
 
   def save
-    Zip::ZipFile.open(@zip_file.local_path) do |zipfile|
-      zipfile.dir.foreach('.') do |file|
-        # TODO Tempfile would be better, but doesn't give correct mime type!
-        tmpfile = File.new("/tmp/#{file}", 'w+')
-        tmpfile.write zipfile.file.read(file)
+    zip_path = File.join(Dir::tmpdir, @zip_file.original_filename)
+    
+    # Copy zip to temp dir
+    FileUtils.copy(@zip_file.local_path, zip_path)
+    
+    # Iterate through zip contents
+    Zip::ZipFile.foreach(zip_path) do |file|
+      # TODO Tempfile would be better, but doesn't give correct mime type!
+      tmpfile_path = File.join(Dir.tmpdir, file.name)
 
-        tmpfile.rewind
-        @album.photos.create!(:image => tmpfile, :title => File.basename(file, File.extname(file)))
+      # Write image to temp file
+      tmpfile = File.new(tmpfile_path, 'w+')
+      tmpfile.write file.get_input_stream.read
 
-        tmpfile.close
-        File::unlink("/tmp/#{file}")
-     end
-    end
+      # Rewind temp file and create photo record from image
+      tmpfile.rewind
+      @album.photos.create!(:image => tmpfile, :title => File.basename(file.name, File.extname(file.name)))
+
+      # Close and delete temp file
+      tmpfile.close
+      File::unlink(tmpfile_path)
+    end    
+    
+    # Remove temporary zip fle
+    File::unlink(zip_path)
   end
 
   def errors
