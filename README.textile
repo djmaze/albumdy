@@ -35,3 +35,5 @@ h3. To install and run the app:
 h4. SQLite and Ruby 1.9 support courtesy of "ahaller":http://github.com/ahaller
 
 h4. Idea for photo EXIF extraction courtesy of "nofxx":http://github.com/nofxx
+
+!https://badges.gitter.im/djmaze/albumdy.svg(Join the chat at https://gitter.im/djmaze/albumdy)!:https://gitter.im/djmaze/albumdy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
